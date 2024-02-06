@@ -1,12 +1,14 @@
 import { Sequelize } from 'sequelize'
+import { config } from 'dotenv'
 
+config()
 const db = new Sequelize(
-  'railway',
-  'root',
-  'CGA4aEEDC-ahg3ge2C3daA-Dfc2-4Cgd',
+  process.env.DB_DATABASE,
+  process.env.DB_USER,
+  process.env.DB_PASS,
   {
-    host: 'viaduct.proxy.rlwy.net',
-    port: '10542',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: 'mysql'
   }
 )
