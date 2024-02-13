@@ -1,6 +1,6 @@
-import { DataTypes } from 'sequelize';
-import db from '../database/config.db.js';
-import { Vector } from './vector.models.js';
+import { DataTypes } from 'sequelize'
+import db from '../database/config.db.js'
+import { Vector } from './vector.models.js'
 
 export const Criteria = db.define(
   'criteria',
@@ -8,20 +8,20 @@ export const Criteria = db.define(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
+      primaryKey: true
     },
     name: { type: DataTypes.STRING },
-    value: { type: DataTypes.INTEGER },
+    value: { type: DataTypes.FLOAT },
     type_vector: { type: DataTypes.INTEGER },
-    other_vector: { type: DataTypes.INTEGER },
+    other_vector: { type: DataTypes.INTEGER }
   },
-  { tableName: 'Criteria', timestamps: false },
-);
+  { tableName: 'Criteria', timestamps: false }
+)
 Criteria.hasMany(Vector, {
   foreignKey: 'criteria_id',
-  sourceKey: 'id',
-});
+  sourceKey: 'id'
+})
 Vector.belongsTo(Criteria, {
   foreignKey: 'criteria_id',
-  targetKey: 'id',
-});
+  targetKey: 'id'
+})
