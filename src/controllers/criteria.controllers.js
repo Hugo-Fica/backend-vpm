@@ -1,41 +1,44 @@
-import { response, request } from 'express';
-import { Criteria } from '../models/criteria.models.js';
+import { response, request } from 'express'
+import { Criteria } from '../models/criteria.models.js'
 
 export const criteriaGet = async (req = request, res = response) => {
-  const criteria = await Criteria.findAll();
+  const criteria = await Criteria.findAll()
   if (criteria.length !== 0) {
-    res.status(200).json(criteria);
+    res.status(200).json(criteria)
   } else {
     res.status(404).json({
-      msg: 'no data in DB',
-    });
+      msg: 'no data in DB'
+    })
   }
-};
+}
 export const criteriaPost = async (req = request, res = response) => {
-  const { criteria } = req.body;
+  const { name, value, type_vector, other_vector } = req.body
   const newCriteria = {
-    name: criteria,
-  };
-  const addCriteria = Criteria.build(newCriteria);
-  await addCriteria.save();
+    name: name,
+    value: value,
+    type_vector: type_vector,
+    other_vector: other_vector
+  }
+  const addCriteria = Criteria.build(newCriteria)
+  await addCriteria.save()
   res.status(201).json({
-    msg: 'criteria created correctly',
-  });
-};
+    msg: 'criteria created correctly'
+  })
+}
 export const criteriaPut = async (req = request, res = response) => {
-  const uid = req.params.id;
-  const { id, ...resto } = req.body;
-  const upCriteria = await Criteria.findByPk(uid);
-  await upCriteria.update(resto);
+  const uid = req.params.id
+  const { id, ...resto } = req.body
+  const upCriteria = await Criteria.findByPk(uid)
+  await upCriteria.update(resto)
   res.json({
-    msg: 'update criteria',
-  });
-};
+    msg: 'update criteria'
+  })
+}
 export const criteriaDelete = async (req = request, res = response) => {
-  const uid = req.params.id;
-  const deleteCriteria = await Criteria.findByPk(uid);
-  await deleteCriteria.destroy({ where: { id: uid } });
+  const uid = req.params.id
+  const deleteCriteria = await Criteria.findByPk(uid)
+  await deleteCriteria.destroy({ where: { id: uid } })
   res.status(200).json({
-    msg: 'delete criteria',
-  });
-};
+    msg: 'delete criteria'
+  })
+}
