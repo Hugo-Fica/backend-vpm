@@ -1,23 +1,23 @@
 export const transformedDatas = (datas = [], dataObject = {}) => {
   const transformedDataArray = datas.map((data) => {
-    const transformedData = {};
+    const transformedData = {}
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
-        const newKey = key.split('.').pop();
-        transformedData[newKey] = data[key];
+        const newKey = key.split('.').pop()
+        transformedData[newKey] = data[key]
       }
     }
-    return transformedData;
-  });
-  const transformedData = {};
+    return transformedData
+  })
+  const transformedData = {}
   for (const key in dataObject) {
     if (dataObject.hasOwnProperty(key)) {
-      const newKey = key.split('.').pop();
-      transformedData[newKey] = dataObject[key];
+      const newKey = key.split('.').pop()
+      transformedData[newKey] = dataObject[key]
     }
   }
-  return { transformedDataArray, transformedData };
-};
+  return { transformedDataArray, transformedData }
+}
 export const valueForm = (valueArray = []) => {
   const newValueForm = valueArray.map((value) => ({
     id: value.id,
@@ -35,11 +35,11 @@ export const valueForm = (valueArray = []) => {
       area: value['vector.area.name'],
       sub_area: value['vector.subarea.name'],
       activity: value['vector.activiry.name'],
-      criteria: value['vector.criterion.name'],
-    },
-  }));
-  return { newValueForm };
-};
+      criteria: value['vector.criterion.name']
+    }
+  }))
+  return { newValueForm }
+}
 export const vectorForm = (vectors = [], vector = {}) => {
   const newVectorFormArray = vectors.map((v) => ({
     id: v.id,
@@ -65,7 +65,8 @@ export const vectorForm = (vectors = [], vector = {}) => {
     criteria: v.criterion?.name,
     criteria_id: v.criteria_id,
     vectors: v.valuevectors,
-  }));
+    type_vector: v.type_vector
+  }))
   const newVectorFormObj = {
     id: vector.id,
     vector: vector.vector,
@@ -85,13 +86,14 @@ export const vectorForm = (vectors = [], vector = {}) => {
     sub_area: vector.subarea?.name,
     activity: vector.activity?.name,
     criteria: vector.criterion?.name,
+    type_vector: vector.type_vector,
     values: vector.valuevectors?.map((valueVector) => ({
       id: valueVector.id,
       position: valueVector.position,
       value: valueVector.value,
-      period: valueVector.period,
-    })),
-  };
+      period: valueVector.period
+    }))
+  }
 
-  return { newVectorFormArray, newVectorFormObj };
-};
+  return { newVectorFormArray, newVectorFormObj }
+}
