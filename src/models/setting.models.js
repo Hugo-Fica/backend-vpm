@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import db from '../database/config.db.js';
+import { DataTypes } from 'sequelize'
+import db from '../database/config.db.js'
 
 export const Setting = db.define(
   'setting',
@@ -7,12 +7,12 @@ export const Setting = db.define(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
+      primaryKey: true
     },
     unit: { type: DataTypes.BOOLEAN, defaultValue: true },
     leakage: { type: DataTypes.BOOLEAN, defaultValue: true },
-    value_leakage: { type: DataTypes.INTEGER, defaultValue: 0 },
-    period: { type: DataTypes.INTEGER, defaultValue: 0 },
+    value_leakage: { type: DataTypes.FLOAT, defaultValue: 0 },
+    period: { type: DataTypes.INTEGER, defaultValue: 0 }
   },
-  { tableName: 'Setting', timestamps: false },
-);
+  { tableName: 'Setting', timestamps: false }
+)

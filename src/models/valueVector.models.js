@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import db from '../database/config.db.js';
+import { DataTypes } from 'sequelize'
+import db from '../database/config.db.js'
 
 export const ValueVector = db.define(
   'valuevector',
@@ -7,18 +7,18 @@ export const ValueVector = db.define(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
+      primaryKey: true
     },
     user_id: { type: DataTypes.UUID },
     vector_id: {
-      type: DataTypes.UUID,
+      type: DataTypes.UUID
     },
     position: { type: DataTypes.INTEGER },
-    value: { type: DataTypes.INTEGER },
-    period: { type: DataTypes.INTEGER },
+    value: { type: DataTypes.FLOAT },
+    period: { type: DataTypes.INTEGER }
   },
   {
     tableName: 'Valuevector',
-    timestamps: false,
-  },
-);
+    timestamps: false
+  }
+)
