@@ -221,7 +221,11 @@ export const equip_vector_value_put = async (req = request, res = response) => {
   const uuid = req.params.id
   const { id, vector_id, ...resto } = req.body
   const upOs = await Equip_Vector_Value.findByPk(uuid)
-  await upOs.update(resto)
+  const evv = {
+    value_x: resto.x,
+    value_y: resto.y
+  }
+  await upOs.update(evv)
   res.status(200).json({ msg: 'update' })
 }
 export const operational_street_value_put = async (
@@ -231,7 +235,11 @@ export const operational_street_value_put = async (
   const uuid = req.params.id
   const { id, vector_id, ...resto } = req.body
   const upOs = await Operational_Streets_Values.findByPk(uuid)
-  await upOs.update(resto)
+  const osv = {
+    value_x: resto.x,
+    value_y: resto.y
+  }
+  await upOs.update(osv)
   res.status(200).json({ msg: 'update' })
 }
 export const vectorDelete = async (req = request, res = response) => {
