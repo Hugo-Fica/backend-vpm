@@ -1,9 +1,12 @@
 import { Router } from 'express'
 import {
   equip_vector_value_post,
+  equip_vector_value_put,
   getOperationalStreet,
   operational_street_post,
+  operational_street_put,
   operational_street_value_post,
+  operational_street_value_put,
   vectorDelete,
   vectorGet,
   vectorGetById,
@@ -49,6 +52,10 @@ vectorRt.put(
   ],
   vectorPut
 )
+vectorRt.put('/os/:id', operational_street_put)
+vectorRt.put('/osv/:id', operational_street_value_put)
+vectorRt.put('/evv/:id', equip_vector_value_put)
+
 vectorRt.delete(
   '/:id',
   [check('id').custom(noVector), fieldValidation],

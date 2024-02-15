@@ -73,24 +73,32 @@ export const vectorGetById = async (req = request, res = response) => {
 export const getOperationalStreet = async (req = request, res = response) => {
   const id = req.params.id
   const equip_vector_value = await Equip_Vector_Value.findAll({
-    where: { vector_id: id },
-    attributes: { exclude: ['id', 'vector_id'] }
+    where: { vector_id: id }
   })
   const operational_streets = await Operational_Streets.findAll({
     where: { vector_id: id }
   })
   const operational_streets_values = await Operational_Streets_Values.findAll({
-    where: { vector_id: id },
-    attributes: { exclude: ['id', 'vector_id'] }
+    where: { vector_id: id }
   })
   const data = {
     equipVectorValue: equip_vector_value
       .sort((a, b) => a.value_x - b.value_x)
-      .map((opv) => ({ x: opv.value_x, y: opv.value_y })),
+      .map((opv) => ({
+        id: opv.id,
+        vector_id: opv.vector_id,
+        x: opv.value_x,
+        y: opv.value_y
+      })),
     operationalStreets: operational_streets[0],
     operationalStreetsValues: operational_streets_values
       .sort((a, b) => a.value_x - b.value_x)
-      .map((opv) => ({ x: opv.value_x, y: opv.value_y }))
+      .map((opv) => ({
+        id: opv.id,
+        vector_id: opv.vector_id,
+        x: opv.value_x,
+        y: opv.value_y
+      }))
   }
   res.status(200).json(data)
 }
@@ -194,7 +202,6 @@ export const operational_street_value_post = async (
 export const vectorPut = async (req = request, res = response) => {
   const uuid = req.params.id
   const { id, vector, ...resto } = req.body
-  console.log(resto)
   const upVector = await Vector.findByPk(uuid)
   const { vector: oldName } = upVector
   if (vector !== oldName) {
@@ -202,6 +209,30 @@ export const vectorPut = async (req = request, res = response) => {
   }
   await upVector.update(resto)
   res.status(200).json({ msg: 'update vector' })
+}
+export const operational_street_put = async (req = request, res = response) => {
+  const uuid = req.params.id
+  const { id, vector_id, ...resto } = req.body
+  const upOs = await Operational_Streets.findByPk(uuid)
+  await upOs.update(resto)
+  res.status(200).json({ msg: 'update' })
+}
+export const equip_vector_value_put = async (req = request, res = response) => {
+  const uuid = req.params.id
+  const { id, vector_id, ...resto } = req.body
+  const upOs = await Equip_Vector_Value.findByPk(uuid)
+  await upOs.update(resto)
+  res.status(200).json({ msg: 'update' })
+}
+export const operational_street_value_put = async (
+  req = request,
+  res = response
+) => {
+  const uuid = req.params.id
+  const { id, vector_id, ...resto } = req.body
+  const upOs = await Operational_Streets_Values.findByPk(uuid)
+  await upOs.update(resto)
+  res.status(200).json({ msg: 'update' })
 }
 export const vectorDelete = async (req = request, res = response) => {
   const uuid = req.params.id
